@@ -7,14 +7,14 @@ const rateEl = document.querySelector('#rate');
 const swap = document.querySelector('#swap');
 
 // fetch exchange rates & update the DOM
-function calculate() {
+async function calculate() {
     const currency_one = currencyEl_one.value;
     const currency_two = currencyEl_two.value;
 
-    fetch(`https://api.exchangerate-api.com/v4/latest/${currency_one}`, {mode: "no-cors"})
-    .then(res => res.json())
-    .then(data => {
-        const rate = data.rates[currency_two];
+    const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${currency_one}`);
+    const data = res.json();
+    Promise.resolve(data).then(data => {
+        const rate = data.rates[currency_one];
 
         rateEl.innerText = `1 ${currency_one} = ${rate} ${currency_two}`;
         // toFixed - format with 2 digits after comma
