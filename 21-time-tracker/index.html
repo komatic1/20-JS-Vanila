@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speak Number Guess</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Time tracker</h1>
+    <div class="container">
+        <div class="header">
+            <h2>Total time (today) -  
+                <span id="total-h">00</span>
+                <span class="dd">:</span>
+                <span id="total-m">00</span>
+                <span class="dd">:</span>
+                <span id="total-s">00</span>
+            </h2>
+        <button class="add-task" id="add-task">Add new task
+            <i class="far fa-calendar-plus"></i>  
+        </button>
+        </div>
+        
+        <ol id="list" class="list">
+            
+        </ol>
+    </div>
+
+    <div id="modal" class="modal">
+        <input type="text" id="description" placeholder="Type here...">
+        <div class="buttons">
+            <button id="close">Close</button>
+            <button id="create">Add</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
