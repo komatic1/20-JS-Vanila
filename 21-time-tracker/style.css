@@ -63,6 +63,21 @@ i.control {
   display: none;
 }
 
+button.clear {
+  padding: 15px;
+  width: 147px;
+  font-size: 16px;
+  border: 2px solid;
+  cursor: pointer;
+  float: right;
+  border-bottom-right-radius: 8px;
+  margin: 0 6px 6px 0;
+}
+
+button.clear:active {
+  transform: scale(0.9);
+}
+
 .modal {
   opacity: 0; 
   z-index: -1;
@@ -105,4 +120,8 @@ i.control {
   font-size:18px;
   margin-top: 10px;
   cursor: pointer;
+}
+
+.hide {
+  display: none;
 }

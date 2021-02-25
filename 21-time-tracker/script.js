@@ -6,7 +6,8 @@ const totalH = document.querySelector('#total-h'),
     createBtn = document.querySelector('#create'),
     closeBtn = document.querySelector('#close')
     taskText = document.querySelector('#description')
-    list = document.querySelector('#list');
+    list = document.querySelector('#list'),
+    clearBtn = document.querySelector('#clear');
 
 let tasks = []; 
 let totalSeconds = localStorage.getItem('totalSeconds') ?? 0;
@@ -70,6 +71,13 @@ function countTime(index) {
     let s = document.querySelector('li.element_' + index + ' span.s');
     let seconds = document.querySelector('li.element_' + index + ' span.seconds');
     const icon = document.querySelector('li.element_' + index + ' i.control');
+    // hide control button for another tasks
+    const existEl = document.querySelectorAll('i.control');
+    existEl.forEach((el, i) => {
+        if (i !== index) {
+            el.classList.add('hide');
+        }
+    });
     // init currentSeconds
     currentSeconds = +seconds.innerHTML;
 
@@ -83,22 +91,19 @@ function countTime(index) {
             ++currentSeconds;
 
             let mm = parseInt(currentSeconds / 60);
-            mm = mm > 60 ? mm - 60 : mm;
+            //mm = mm > 60 ? mm - 60 : mm;
             s.innerHTML = pad(parseInt(currentSeconds % 60));
-            m.innerHTML = pad(mm);
+            m.innerHTML = pad(parseInt(currentSeconds / 60) - parseInt(currentSeconds / 3600) * 60);
             h.innerHTML = pad(parseInt(currentSeconds / 3600));
             seconds.innerHTML = currentSeconds;
 
             tasks[index].s = pad(parseInt(currentSeconds % 60));
-            tasks[index].m = pad(mm);
+            tasks[index].m = pad(parseInt(currentSeconds / 60) - parseInt(currentSeconds / 3600) * 60);
             tasks[index].h = pad(parseInt(currentSeconds / 3600));
             tasks[index].seconds = currentSeconds;
 
-            // total day time
-            let tm = parseInt(totalSeconds / 60);
-            tm = tm > 60 ? tm - 60 : tm;
             totalS.innerHTML = pad(totalSeconds % 60);
-            totalM.innerHTML = pad(tm);
+            totalM.innerHTML = pad(parseInt(totalSeconds / 60) - parseInt(totalSeconds / 3600) * 60);
             totalH.innerHTML = pad(parseInt(totalSeconds / 3600));
         }, 1000);
     } else {
@@ -109,6 +114,12 @@ function countTime(index) {
         currentSeconds = 0;
         localStorage.setItem('tasks', JSON.stringify(tasks));
         localStorage.setItem('totalSeconds', totalSeconds);
+        // display control button
+        existEl.forEach((el, i) => {
+            if (i !== index) {
+                el.classList.remove('hide');
+            }
+        });
     }
     
 }
@@ -128,3 +139,14 @@ addBtn.addEventListener('click', () => modal.classList.add('show'));
 closeBtn.addEventListener('click', () => modal.classList.remove('show'));
 
 createBtn.addEventListener('click', addNewTask);
+
+clearBtn.addEventListener('click', () => {
+    const activeTask = document.querySelectorAll('.fa-pause-circle');
+    
+    if (activeTask.length === 0) {
+        localStorage.setItem('totalSeconds', 0);
+        totalS.innerHTML = "00";
+        totalM.innerHTML = "00";
+        totalH.innerHTML = "00";
+    }
+})
