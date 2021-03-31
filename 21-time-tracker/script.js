@@ -7,7 +7,8 @@ const totalH = document.querySelector('#total-h'),
     closeBtn = document.querySelector('#close')
     taskText = document.querySelector('#description')
     list = document.querySelector('#list'),
-    clearBtn = document.querySelector('#clear');
+    clearBtn = document.querySelector('#clear'),
+    finish = document.querySelector('#finish');
 
 let tasks = []; 
 let totalSeconds = localStorage.getItem('totalSeconds') ?? 0;
@@ -82,6 +83,11 @@ function countTime(index) {
     currentSeconds = +seconds.innerHTML;
 
     if (icon.classList.contains('fa-play-circle')) {
+        // update finish time
+        let timeEndDiff = (8 * 3600) - totalSeconds;
+        let currDT = new Date();
+        currDT.setSeconds(currDT.getSeconds() + timeEndDiff);
+        finish.innerText = currDT.getHours() + ':' + currDT.getMinutes();
         // count
         icon.classList.remove('fa-play-circle');
         icon.classList.add('fa-pause-circle');
