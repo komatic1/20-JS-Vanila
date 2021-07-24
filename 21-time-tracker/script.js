@@ -18,7 +18,11 @@ let counter = 0;
 // init
 function initList() {
     const saved = JSON.parse(localStorage.getItem('tasks'));
-    tasks = [...saved];
+    if (saved === null) {
+        tasks = [];
+    } else {
+        tasks = [...saved];
+    }
     updateDOM(tasks);
 }
 
